@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+
+   
+    <link rel="stylesheet" href="./css/index.css">
+
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Electrolize">
+</head>
+
+<body>
+
+    <div id="main_screen"  w3-include-html="./pages/main_screen.html"></div>
+    <div id="game_screen" class="hide" w3-include-html="./pages/game.html"></div>
+
+</body>
+
+<script type="module" src="js/index.js"></script>
+<script src="js/w3.js"></script>
+<script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty.js"></script>
+<script>
+    //to bring in other HTML on the fly into this page
+    w3.includeHTML();
+</script>
+
+</html>

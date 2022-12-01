@@ -1,0 +1,22 @@
+* {
+    font-family: 'Arimo', serif;
+
+}
+
+body, html {
+
+    height: 100%;
+
+
+}
+
+.middle_content {
+    text-align: center;
+}
+
+#start_button {
+    
+
+
+    margin-top: 4em;
+}
