@@ -1,12 +1,23 @@
-var e = Crafty.init(window.innerWidth - 50, window.innerHeight);
+setTimeout(()=>{
+    var e = Crafty.init(window.innerWidth - 50, window.innerHeight - 100, puzzle);
+    start()
+},100)
 
 Crafty.sprite("css/images/flappy.png", {flower:[100,0,1000,1000]});
 
+var displayScore, displayTotal, resultScreen, gameScreen;
+
+function start(){
+    displayScore = document.querySelector(".currentScore");
+    displayTotal = document.querySelector(".total");
+    resultScreen = document.getElementById("result_screen");
+    gameScreen = document.getElementById("game_screen");
+}
 
 
 const dim2 = { x: 100, y: 50, w: 60, h: 40, health: 123 };
 
-var score;
+var score, total;
 
 const grid = [];
 
@@ -32,6 +43,12 @@ const LIGHT_COLOR = "#FFFFFF",
 export function initGrid()
 {
     score = 0;
+    total = 1000;
+
+    console.log(total, displayScore)
+    displayScore.innerHTML = score;
+    displayTotal.innerHTML = total;
+    
     let alternateXColors = false;
     for(let x = 0; x < MAX_ROWS; x++) 
     {
@@ -64,7 +81,7 @@ export function initGrid()
 
 
             var parent = Crafty.e("2D, Canvas, Color, Collision, GridX" + x + "GridY" + y + ", WiredHitBox")
-                        .attr({x: ((GRID_SIZE - 1) * x), y: ((GRID_SIZE  - 1) * y), w:
+                        .attr({x: ((GRID_SIZE - 1) * x) + 5, y: ((GRID_SIZE  - 1) * y) + 5, w:
                     GRID_SIZE, h: GRID_SIZE, initialColor: color, highlighted: false, selected: false, yPos: y, xPos: x})
                     .debugStroke("black")    
                     .color(color)
@@ -227,6 +244,7 @@ function onTileStopDrag(element)
 
     if(hoveredTiles.length > 0)
     {
+        displayScore.innerHTML = score
         element.destroy();
         generateRandomTile();
     }
@@ -319,6 +337,11 @@ function checkTiles(checkX, value)
             setTimeout(function() {
            
                 particle.destroy();
+
+                if(score == total){
+                    gameScreen.classList.add("hide")
+                    resultScreen.classList.remove("hide");
+                }
             }, delayInMilliseconds);
         })
 
@@ -392,7 +415,7 @@ export function generateRandomTile()
         if(x !== 0 || y !== 0)
         {
             const rect3 = Crafty.e("2D, Canvas, Color, Keyboard, Collision, WiredHitBox")
-                .attr({ x: GRID_SIZE + x, y: 400 + y, w: GRID_SIZE - 5, h: GRID_SIZE - 5})
+                .attr({ x: (GRID_SIZE - 50) + x, y: 450 + y, w: GRID_SIZE - 5, h: GRID_SIZE - 5})
                 .debugStroke("black")
                 .color(newColor);
 
@@ -410,7 +433,7 @@ export function generateRandomTile()
 
 
     const rect2 = Crafty.e("2D, Canvas, Color, Keyboard, Tiles, Collision, WiredHitBox, PuzzleParent")
-        .attr({ x: GRID_SIZE, y: 400, w: GRID_SIZE - 5, h: GRID_SIZE - 5, tiles:
+        .attr({ x: GRID_SIZE - 50, y: 450, w: GRID_SIZE - 5, h: GRID_SIZE - 5, tiles:
             tileFormations })
         .debugStroke("black")
         .color(newColor)

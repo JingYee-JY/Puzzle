@@ -19,8 +19,13 @@ function init(){
 function startGame()
 {
     mainMenuScreen.classList.add("hide");
-    //gameScreen.classList.remove("hide")
+    gameScreen.classList.remove("hide")
     Game.initGrid();
     Game.generateRandomTile();
 
 }
+
+
+document.addEventListener('dblclick', function(event) {
+    event.preventDefault();
+}, { passive: false });
